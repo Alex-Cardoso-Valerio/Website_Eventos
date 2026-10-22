@@ -9,6 +9,7 @@ import {
   Layers,
   HeartHandshake,
   ShieldCheck,
+  Music,
 } from "lucide-react";
 import { PageHero, Button, Eyebrow } from "../components/SharedUI";
 import { SERVICOS_LIST } from "../data/content";
@@ -23,58 +24,58 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
   const steps = [
     {
       step: "01",
-      title: "Reunião de Briefing & Visita",
-      desc: "Entendemos a essência, o estilo e as expectativas do seu evento, além de apresentar o espaço em detalhes.",
+      title: "Reunião de Briefing & Conceito",
+      desc: "Entendemos as expectativas, estilo musical, atrações desejadas e perfil dos convidados da sua celebração.",
     },
     {
       step: "02",
-      title: "Planejamento & Projeto 3D",
-      desc: "Nossos designers criam a planta cenográfica personalizada e a equipe de gastronomia monta o menu exclusivo.",
+      title: "Projeto de Luz, Som & Cenografia",
+      desc: "Nossos designers criam a planta de iluminação cênica, distribuição de lounges, bistrôs e fluxo de pista.",
     },
     {
       step: "03",
-      title: "Degustação VIP do Menu",
-      desc: "Você e seus familiares degustam os pratos e drinks selecionados para aprovação com o nosso Chef Executivo.",
+      title: "Degustação do Cardápio & Bar",
+      desc: "Você e sua família provam as ilhas gastronômicas, pratos principais e a carta de drinks autorais.",
     },
     {
       step: "04",
-      title: "Alinhamento & Cronograma Reverso",
-      desc: "Reunião final com cerimonial e equipe técnica para alinhar minuto a minuto o roteiro da celebração.",
+      title: "Cronograma Dinâmico de Pista",
+      desc: "Alinhamento minuto a minuto entre cerimonial, DJs, bandas, abertura de bar e lanches da madrugada.",
     },
     {
       step: "05",
-      title: "O Grande Dia com Maestria",
-      desc: "Nossa equipe sênior assume a coordenação e cuida de tudo para você aproveitar sem qualquer preocupação.",
+      title: "Uma Noite Inesquecível",
+      desc: "Nossa equipe cuida de toda a operação nos bastidores para você curtir a pista até o último segundo.",
     },
   ];
 
   const faqs = [
     {
-      q: "O espaço pode ser locado com ou sem serviços inclusos?",
-      a: "Oferecemos pacotes completos 'chave na mão' (Salão + Gastronomia + Decoração + Som/Luz + Cerimonial) para máxima comodidade e harmonia, mas também flexibilizamos a contratação individual de fornecedores homologados pelo nosso padrão de qualidade.",
+      q: "Qual o horário limite para término da música e da festa?",
+      a: "Nosso espaço dispõe de isolamento acústico profissional completo, permitindo que a festa se estenda com bandas e DJs tocando em volume de celebração até às 05:00 da manhã sem risco de interrupções.",
     },
     {
-      q: "Qual o horário limite para término dos eventos?",
-      a: "Graças ao nosso tratamento e isolamento acústico profissional, os eventos podem se estender com música ao vivo e DJs até às 05:00 da manhã sem risco de multas ou interrupções pela vizinhança.",
+      q: "Quantas horas de festa estão inclusas nos pacotes?",
+      a: "Nossos pacotes padrão oferecem 6 horas de festa com tolerância adicional para acolhimento dos convidados, além de liberação antecipada do salão para montagem de cenografia e preparação no camarim.",
     },
     {
-      q: "Quantas horas de festa estão inclusas?",
-      a: "Nossos pacotes padrão oferecem 6 horas de festa com tolerância adicional de 30 minutos para acolhimento dos convidados, além de 6 a 8 horas prévias liberadas para montagem dos fornecedores e produção dos anfitriões na suíte VIP.",
+      q: "O espaço conta com gerador de energia próprio?",
+      a: "Sim! Dispomos de um gerador de 500 kVA automático e dedicado que sustenta 100% da carga de som, painéis de LED, iluminação cênica e climatização em caso de qualquer oscilação na rede externa.",
     },
     {
-      q: "É possível agendar uma degustação antes de fechar o contrato?",
-      a: "Sim! Oferecemos jantares de degustação exclusivos mediante agendamento com nossa concierge para que você sinta a experiência gastronômica antes da decisão final.",
+      q: "Posso levar atrações musicais ou DJs próprios?",
+      a: "Com certeza! Dispomos de rider técnico profissional pronto para receber bandas de renome, DJs de ponta e apresentações ao vivo com camarim exclusivo para os artistas.",
     },
   ];
 
   return (
-    <div className="bg-[#FAF8F5]">
+    <div className="bg-[#0B0E0D] text-[#F5EFE6]">
       <PageHero
-        badge="ASSESSORIA & PRODUÇÃO DE ELITE"
+        badge="PRODUÇÃO DE FESTAS DE GALA"
         title="Nossos Serviços"
-        highlight="Planejamento Sem Preocupações"
-        description="Conheça nossas soluções completas: assessoria 360°, cenografia floral sob medida, gastronomia refinada, sonorização de nível internacional e coordenação atenta a cada instante."
-        actionText="Solicitar Orçamento de Serviços"
+        highlight="A Energia de Uma Grande Noite"
+        description="Soluções completas para eventos noturnos: assessoria 360°, cenografia com iluminação cênica, gastronomia festiva com open bar premium e som de alta fidelidade até às 05h."
+        actionText="Solicitar Orçamento de Produção"
         onAction={onOpenBooking}
       />
 
@@ -91,60 +92,60 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className={`grid items-center gap-8 rounded-3xl bg-white p-8 shadow-xs border border-[#eae3d5] md:p-12 lg:grid-cols-12`}
+                className={`grid items-center gap-8 rounded-3xl bg-[#141A17] p-8 shadow-xl border border-[#D9B98B]/15 md:p-12 lg:grid-cols-12`}
               >
                 <div className={`lg:col-span-7 ${isEven ? "lg:order-1" : "lg:order-2"}`}>
                   <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F6EFE7] text-[#A8845B]">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1C2622] text-[#D9B98B]">
                       <Icon className="h-6 w-6" strokeWidth={1.4} />
                     </div>
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#A8845B]">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#D9B98B]">
                         Serviço 0{index + 1}
                       </span>
-                      <h3 className="font-serif text-2xl font-bold text-[#1A2421]">
+                      <h3 className="font-serif text-2xl font-bold text-white">
                         {servico.title}
                       </h3>
                     </div>
                   </div>
 
-                  <p className="mt-4 text-xs font-semibold text-[#2C3B32]">
+                  <p className="mt-4 text-xs font-semibold text-[#FAF0E1]">
                     {servico.shortDesc}
                   </p>
-                  <p className="mt-2 text-xs leading-relaxed text-[#5b625d] sm:text-sm">
+                  <p className="mt-2 text-xs leading-relaxed text-[#A6B0A8] sm:text-sm">
                     {servico.fullDesc}
                   </p>
 
                   <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
                     {servico.items.map((item) => (
                       <div key={item} className="flex items-start gap-2">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#A8845B]" />
-                        <span className="text-xs text-[#2C3B32]">{item}</span>
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#D9B98B]" />
+                        <span className="text-xs text-[#E6DDD0]">{item}</span>
                       </div>
                     ))}
                   </div>
 
                   <div className="mt-8">
-                    <Button variant="dark" onClick={onOpenBooking}>
-                      Personalizar Este Serviço <ArrowRight className="h-3.5 w-3.5" />
+                    <Button variant="gold" onClick={onOpenBooking}>
+                      Personalizar Para Minha Festa <ArrowRight className="h-3.5 w-3.5" />
                     </Button>
                   </div>
                 </div>
 
                 <div
-                  className={`flex flex-col justify-center rounded-2xl bg-[#FAF8F5] p-8 border border-[#eae3d5] lg:col-span-5 ${
+                  className={`flex flex-col justify-center rounded-2xl bg-[#1A221E] p-8 border border-[#D9B98B]/20 lg:col-span-5 ${
                     isEven ? "lg:order-2" : "lg:order-1"
                   }`}
                 >
-                  <Sparkles className="h-8 w-8 text-[#A8845B]" />
-                  <h4 className="mt-4 font-serif text-lg font-bold text-[#1A2421]">
-                    Diferencial Eterna
+                  <Sparkles className="h-8 w-8 text-[#D9B98B]" />
+                  <h4 className="mt-4 font-serif text-lg font-bold text-white">
+                    Padrão de Noite Eterna
                   </h4>
-                  <p className="mt-2 text-xs leading-relaxed text-[#6b716c]">
-                    Nenhum evento é padronizado. Cada contrato conta com um gestor exclusivo que atua como seu ponto de contato direto 24/7 durante todas as etapas preparatórias.
+                  <p className="mt-2 text-xs leading-relaxed text-[#A6B0A8]">
+                    Cada celebração conta com um coordenador sênior exclusivo que acompanha presencialmente desde a primeira descarga de som até o encerramento da pista de dança.
                   </p>
-                  <div className="mt-6 flex items-center gap-3 border-t border-[#eae3d5] pt-4 text-xs font-semibold text-[#A8845B]">
-                    <ShieldCheck className="h-4 w-4" /> Qualidade Homologada & Garantia em Contrato
+                  <div className="mt-6 flex items-center gap-3 border-t border-[#D9B98B]/15 pt-4 text-xs font-semibold text-[#D9B98B]">
+                    <ShieldCheck className="h-4 w-4" /> Isolamento Acústico & Gerador Próprio 500kVA
                   </div>
                 </div>
               </motion.article>
@@ -154,15 +155,15 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
       </section>
 
       {/* Como Trabalhamos Passo a Passo */}
-      <section className="bg-[#F6EFE7] px-6 py-20 border-y border-[#eae3d5]">
+      <section className="bg-[#0F1412] px-6 py-20 border-y border-[#D9B98B]/15">
         <div className="mx-auto max-w-7xl">
           <div className="text-center">
-            <Eyebrow>O NOSSO PROCESSO</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
-              Como Transformamos Sonhos em Realidade
+            <Eyebrow>PLANEJAMENTO DA FESTA</Eyebrow>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-white sm:text-4xl">
+              Do Primeiro Conceito ao Amanhecer
             </h2>
-            <p className="mx-auto mt-2 max-w-xl text-xs text-[#6b716c] sm:text-sm">
-              Um método comprovado ao longo de 12 anos para que você viva uma experiência leve, prazerosa e segura.
+            <p className="mx-auto mt-2 max-w-xl text-xs text-[#A6B0A8] sm:text-sm">
+              Um cronograma dinâmico desenhado para que a festa nunca perca a intensidade.
             </p>
           </div>
 
@@ -171,11 +172,11 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
               <motion.div
                 key={st.step}
                 whileHover={{ y: -6 }}
-                className="rounded-2xl bg-white/80 p-6 shadow-xs border border-[#eae3d5]"
+                className="rounded-2xl bg-[#151D19] p-6 shadow-md border border-[#D9B98B]/15"
               >
-                <span className="font-serif text-3xl font-bold text-[#A8845B]/60">{st.step}</span>
-                <h4 className="mt-3 font-serif text-base font-bold text-[#1A2421]">{st.title}</h4>
-                <p className="mt-2 text-xs leading-relaxed text-[#6b716c]">{st.desc}</p>
+                <span className="font-serif text-3xl font-bold text-[#D9B98B]/60">{st.step}</span>
+                <h4 className="mt-3 font-serif text-base font-bold text-white">{st.title}</h4>
+                <p className="mt-2 text-xs leading-relaxed text-[#A6B0A8]">{st.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -186,11 +187,11 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
       <section className="mx-auto max-w-4xl px-6 py-20">
         <div className="text-center">
           <Eyebrow>DÚVIDAS FREQUENTES</Eyebrow>
-          <h2 className="mt-2 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
+          <h2 className="mt-2 font-serif text-3xl font-bold text-white sm:text-4xl">
             Perguntas & Respostas
           </h2>
-          <p className="mt-2 text-xs text-[#6b716c]">
-            Transparência e clareza para que você faça sua escolha com absoluta confiança.
+          <p className="mt-2 text-xs text-[#A6B0A8]">
+            Tudo o que você precisa saber para planejar sua grande festa com tranquilidade.
           </p>
         </div>
 
@@ -200,15 +201,15 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
             return (
               <div
                 key={faq.q}
-                className="overflow-hidden rounded-2xl bg-white shadow-xs border border-[#eae3d5]"
+                className="overflow-hidden rounded-2xl bg-[#141A17] shadow-sm border border-[#D9B98B]/15"
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="flex w-full items-center justify-between p-5 text-left text-sm font-semibold text-[#1A2421] transition-colors hover:bg-[#F6EFE7]"
+                  className="flex w-full items-center justify-between p-5 text-left text-sm font-semibold text-white transition-colors hover:bg-white/5"
                 >
                   <span>{faq.q}</span>
                   <ChevronDown
-                    className={`h-4 w-4 text-[#A8845B] transition-transform duration-300 ${
+                    className={`h-4 w-4 text-[#D9B98B] transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />
@@ -220,7 +221,7 @@ export const ServicosPage = ({ onOpenBooking }: ServicosPageProps) => {
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3 }}
-                      className="border-t border-[#eae3d5] bg-[#FAF8F5] p-5 text-xs leading-relaxed text-[#5b625d]"
+                      className="border-t border-[#D9B98B]/15 bg-[#18201C] p-5 text-xs leading-relaxed text-[#A6B0A8]"
                     >
                       {faq.a}
                     </motion.div>

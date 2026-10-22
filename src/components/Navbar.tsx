@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, Sparkles } from "lucide-react";
 import { Logo, Button } from "./SharedUI";
 
 interface NavbarProps {
@@ -27,26 +27,26 @@ export const Navbar = ({ onOpenBooking }: NavbarProps) => {
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md transition-all duration-300 border-b border-[#eae3d5]">
+    <header className="sticky top-0 z-40 bg-[#0B0E0D]/90 backdrop-blur-md transition-all duration-300 border-b border-[#D9B98B]/15">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Logo />
 
-        <ul className="hidden items-center gap-7 text-xs font-medium text-[#2C3B32] lg:flex">
+        <ul className="hidden items-center gap-7 text-xs font-medium text-[#C8D1CB] lg:flex">
           {links.map((link) => {
             const active = isActive(link.path);
             return (
               <li key={link.path}>
                 <Link
                   to={link.path}
-                  className={`relative py-1.5 transition-colors hover:text-[#A8845B] ${
-                    active ? "text-[#1A2421] font-bold" : "text-[#5b625d]"
+                  className={`relative py-1.5 transition-colors hover:text-[#D9B98B] ${
+                    active ? "text-[#D9B98B] font-bold" : "text-[#A6B0A8]"
                   }`}
                 >
                   {link.label}
                   {active && (
                     <motion.div
                       layoutId="nav-underline"
-                      className="absolute bottom-0 left-0 h-[2px] w-full bg-[#1A2421]"
+                      className="absolute bottom-0 left-0 h-[2px] w-full bg-[#D9B98B] shadow-sm shadow-[#D9B98B]/50"
                     />
                   )}
                 </Link>
@@ -56,13 +56,13 @@ export const Navbar = ({ onOpenBooking }: NavbarProps) => {
         </ul>
 
         <div className="hidden lg:block">
-          <Button variant="dark" onClick={onOpenBooking}>
-            Agendar Visita <ArrowRight className="h-3.5 w-3.5" />
+          <Button variant="gold" onClick={onOpenBooking}>
+            <Sparkles className="h-3.5 w-3.5" /> Agendar Visita VIP
           </Button>
         </div>
 
         <button
-          className="rounded-xl p-2 text-[#1A2421] lg:hidden hover:bg-[#F6EFE7]"
+          className="rounded-xl p-2 text-white lg:hidden hover:bg-white/10"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Abrir Menu"
         >
@@ -77,7 +77,7 @@ export const Navbar = ({ onOpenBooking }: NavbarProps) => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden border-t border-[#eadfce] bg-[#FAF8F5] px-6 py-5 lg:hidden"
+            className="overflow-hidden border-t border-[#D9B98B]/15 bg-[#0F1412] px-6 py-5 lg:hidden"
           >
             <ul className="space-y-4">
               {links.map((link) => (
@@ -87,8 +87,8 @@ export const Navbar = ({ onOpenBooking }: NavbarProps) => {
                     onClick={() => setMobileOpen(false)}
                     className={`block text-sm font-medium ${
                       isActive(link.path)
-                        ? "text-[#1A2421] font-bold"
-                        : "text-[#2C3B32] hover:text-[#A8845B]"
+                        ? "text-[#D9B98B] font-bold"
+                        : "text-[#C8D1CB] hover:text-[#D9B98B]"
                     }`}
                   >
                     {link.label}
@@ -96,9 +96,9 @@ export const Navbar = ({ onOpenBooking }: NavbarProps) => {
                 </li>
               ))}
             </ul>
-            <div className="mt-5 border-t border-[#eadfce] pt-4">
+            <div className="mt-5 border-t border-[#D9B98B]/15 pt-4">
               <Button
-                variant="dark"
+                variant="gold"
                 className="w-full justify-center"
                 onClick={() => {
                   setMobileOpen(false);

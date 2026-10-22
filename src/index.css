@@ -8,9 +8,33 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #0B0E0D;
+  color: #F5EFE6;
+}
+
+body {
+  background-color: #0B0E0D;
+  color: #F5EFE6;
+  overflow-x: hidden;
 }
 
 ::selection {
   background-color: #D9B98B;
-  color: #1A2421;
+  color: #0B0E0D;
+}
+
+/* Custom festive glow animations */
+@keyframes goldPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.05);
+  }
+}
+
+.animate-gold-pulse {
+  animation: goldPulse 4s ease-in-out infinite;
 }

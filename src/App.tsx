@@ -29,7 +29,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="flex min-h-screen flex-col bg-[#FAF8F5] font-sans text-[#2C3B32] antialiased selection:bg-[#D9B98B] selection:text-[#1A2421]">
+      <div className="flex min-h-screen flex-col bg-[#0B0E0D] font-sans text-[#F5EFE6] antialiased selection:bg-[#D9B98B] selection:text-[#0B0E0D]">
         <BookingModal isOpen={bookingOpen} onClose={handleCloseBooking} />
         <Navbar onOpenBooking={handleOpenBooking} />
         <main className="flex-1">

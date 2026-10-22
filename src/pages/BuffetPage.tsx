@@ -11,6 +11,7 @@ import {
   Coffee,
   GlassWater,
   ChefHat,
+  Flame,
 } from "lucide-react";
 import { PageHero, Button, Eyebrow } from "../components/SharedUI";
 import { BUFFET_MENUS, img } from "../data/content";
@@ -25,53 +26,53 @@ export const BuffetPage = ({ onOpenBooking }: BuffetPageProps) => {
   const highlights = [
     {
       title: "Ilhas Gastronômicas ao Vivo",
-      desc: "Estações ativas onde risotos, massas artesanais flambadas e ceviches são preparados na hora aos olhos dos convidados.",
+      desc: "Estações ativas onde risotos na roda de parmesão e ceviches frescos são preparados na hora para os convidados.",
       image: img("photo-1555244162-803834f70033", 800),
     },
     {
-      title: "Jantares Empratados à Francesa",
-      desc: "Serviço sincronizado e impecável com cortes nobres como Tornedor de Mignon em crosta de ervas e aligot trufado.",
+      title: "Jantares de Gala à Francesa",
+      desc: "Serviço sincronizado e nobre com Tornedor de Mignon em crosta de ervas e aligot trufado de queijo Canastra.",
       image: img("photo-1544025162-d76694265947", 800),
     },
     {
-      title: "Mixologia & Bar de Coquetéis",
-      desc: "Bebidas premium, gelos translúcidos lapidados, infusões botânicas e drinks autorais que viram atrações na pista de dança.",
+      title: "Bar Central & Mixologia Autoral",
+      desc: "Drinks autorais com gelo lapidado, bolhas aromáticas defumadas, folhas de ouro e destilados importados de primeira linha.",
       image: img("photo-1514362545857-3bc16c4c7d1b", 800),
     },
     {
-      title: "Alta Confeitaria & Doces Finos",
-      desc: "Doces artesanais decorados com ouro comestível, mil-folhas com baunilha de Madagascar e mesa monumental de macarons.",
+      title: "Lanchinho da Madrugada na Pista",
+      desc: "Mini smash burgers quentinhos, coxinhas de pato e churros servidos no auge da pista de dança para recarregar as energias.",
       image: img("photo-1509440159596-0249088772ff", 800),
     },
   ];
 
   const dietaryCommitments = [
-    "Opções 100% vegetarianas e veganas com alta complexidade de sabores",
-    "Cardápios adaptados para intolerantes a glúten (celíacos) e lactose",
-    "Respeito absoluto a restrições religiosas (menus Kosher e Halal)",
-    "Menu Kids saudável e afetivo para crianças convidadas",
+    "Opções 100% vegetarianas e veganas com apresentação e sabor refinados",
+    "Pratos especiais para celíacos (glúten-free) e intolerantes a lactose",
+    "Respeito a orientações religiosas com cardápios Kosher e Halal",
+    "Finger foods quentes servidos ininterruptamente na pista de dança",
   ];
 
   return (
-    <div className="bg-[#FAF8F5]">
+    <div className="bg-[#0B0E0D] text-[#F5EFE6]">
       <PageHero
-        badge="ALTA GASTRONOMIA & COQUETELARIA"
-        title="Buffet Autoral Eterna"
-        highlight="Sabores Que Marcam Época"
-        description="Uma experiência sensorial inesquecível. Conheça nossos menus assinados, ilhas gastronômicas ativas, coquetelaria contemporânea e agende sua degustação exclusiva."
-        actionText="Agendar Degustação do Buffet"
+        badge="ALTA GASTRONOMIA FESTIVA & MIXOLOGIA"
+        title="Buffet & Cocktails"
+        highlight="Sabores Que Embalam a Noite"
+        description="Uma experiência gastronômica noturna vibrante e sofisticada. Ilhas gastronômicas ao vivo, jantares de gala, lanches da madrugada na pista e coquetelaria autoral premiada."
+        actionText="Agendar Degustação Noturna"
         onAction={onOpenBooking}
       />
 
-      {/* Destaques Gastronômicos em Cards */}
+      {/* Destaques em Cards */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="text-center">
-          <Eyebrow>CONCEITO CULINÁRIO</Eyebrow>
-          <h2 className="mt-2 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
-            A Arte da Boa Mesa em Seu Evento
+          <Eyebrow>CONCEITO GASTRONÔMICO</Eyebrow>
+          <h2 className="mt-2 font-serif text-3xl font-bold text-white sm:text-4xl">
+            A Gastronomia Como Atração da Festa
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-xs text-[#6b716c] sm:text-sm">
-            Nossa cozinha industrial própria opera sob comando de chefs renomados, garantindo ingredientes frescos, apresentação impecável e serviço no tempo perfeito.
+          <p className="mx-auto mt-2 max-w-2xl text-xs text-[#A6B0A8] sm:text-sm">
+            Nossa cozinha industrial de alta vazão garante pratos na temperatura ideal, serviço sincronizado e comida deliciosa até o último instante da noite.
           </p>
         </div>
 
@@ -80,7 +81,7 @@ export const BuffetPage = ({ onOpenBooking }: BuffetPageProps) => {
             <motion.div
               key={item.title}
               whileHover={{ y: -6 }}
-              className="group overflow-hidden rounded-3xl bg-white shadow-xs border border-[#eae3d5]"
+              className="group overflow-hidden rounded-3xl bg-[#141A17] shadow-xl border border-[#D9B98B]/15"
             >
               <div className="relative h-60 overflow-hidden">
                 <img
@@ -90,24 +91,24 @@ export const BuffetPage = ({ onOpenBooking }: BuffetPageProps) => {
                 />
               </div>
               <div className="p-6">
-                <h3 className="font-serif text-lg font-bold text-[#1A2421]">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-[#6b716c]">{item.desc}</p>
+                <h3 className="font-serif text-lg font-bold text-white">{item.title}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-[#A6B0A8]">{item.desc}</p>
               </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Menus Detalhados com Abas */}
-      <section className="bg-[#F6EFE7] px-6 py-20 border-y border-[#eae3d5]">
+      {/* Menus em Abas */}
+      <section className="bg-[#0F1412] px-6 py-20 border-y border-[#D9B98B]/15">
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <Eyebrow>CARDÁPIOS DE DEGUSTAÇÃO</Eyebrow>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
-              Nossos Menus & Especialidades
+            <Eyebrow>CARDÁPIOS EXCLUSIVOS</Eyebrow>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-white sm:text-4xl">
+              Nossos Menus Festivos
             </h2>
-            <p className="mx-auto mt-2 max-w-xl text-xs text-[#6b716c] sm:text-sm">
-              Cada prato é uma obra de arte pensada para encantar todos os paladares.
+            <p className="mx-auto mt-2 max-w-xl text-xs text-[#A6B0A8] sm:text-sm">
+              Conheça os pratos criados para surpreender do primeiro brinde à madrugada.
             </p>
           </div>
 
@@ -119,8 +120,8 @@ export const BuffetPage = ({ onOpenBooking }: BuffetPageProps) => {
                 onClick={() => setActiveTab(idx)}
                 className={`rounded-full px-5 py-2.5 text-xs font-semibold transition-all ${
                   activeTab === idx
-                    ? "bg-[#1A2421] text-white shadow-md"
-                    : "bg-white/80 text-[#2C3B32] hover:bg-white"
+                    ? "bg-[#D9B98B] text-[#0B0E0D] font-bold shadow-lg shadow-[#D9B98B]/20"
+                    : "bg-[#161D1A] text-[#C8D1CB] border border-[#D9B98B]/20 hover:bg-[#202925]"
                 }`}
               >
                 {menu.category.split("(")[0]}
@@ -139,17 +140,17 @@ export const BuffetPage = ({ onOpenBooking }: BuffetPageProps) => {
             {BUFFET_MENUS[activeTab].items.map((dish) => (
               <div
                 key={dish.name}
-                className="rounded-2xl bg-white/90 p-6 shadow-xs border border-[#eae3d5]"
+                className="rounded-2xl bg-[#151D19] p-6 shadow-sm border border-[#D9B98B]/15"
               >
                 <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-baseline">
-                  <h4 className="font-serif text-base font-bold text-[#1A2421]">
+                  <h4 className="font-serif text-base font-bold text-white">
                     {dish.name}
                   </h4>
-                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#A8845B]">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-[#D9B98B]">
                     Assinatura do Chef
                   </span>
                 </div>
-                <p className="mt-2 text-xs leading-relaxed text-[#5b625d] sm:text-sm">
+                <p className="mt-2 text-xs leading-relaxed text-[#A6B0A8] sm:text-sm">
                   {dish.desc}
                 </p>
               </div>
@@ -157,53 +158,53 @@ export const BuffetPage = ({ onOpenBooking }: BuffetPageProps) => {
           </motion.div>
 
           <div className="mt-10 text-center">
-            <Button variant="dark" onClick={onOpenBooking}>
-              Solicitar Cardápio Completo em PDF <ArrowRight className="h-3.5 w-3.5" />
+            <Button variant="gold" onClick={onOpenBooking}>
+              <Sparkles className="h-4 w-4" /> Solicitar Cardápio Completo em PDF
             </Button>
           </div>
         </div>
       </section>
 
-      {/* Cuidados Nutricionais & Inclusão Alimentar */}
+      {/* Compromissos e Brigada */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-12 lg:grid-cols-12 items-center">
           <div className="lg:col-span-6">
-            <Eyebrow>HOSPITALIDADE & CUIDADO</Eyebrow>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
-              Gastronomia Inclusiva Para Todos os Convidados
+            <Eyebrow>HOSPITALIDADE & SABOR</Eyebrow>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-white sm:text-4xl">
+              Cuidado Para Que Todos os Convidados Comemorem
             </h2>
-            <p className="mt-4 text-xs leading-relaxed text-[#5b625d] sm:text-sm">
-              Acreditamos que todos os convidados devem se sentir verdadeiramente acolhidos e encantados. Desenvolvemos estações e pratos dedicados para vegetarianos, celíacos e alérgicos com a mesma sofisticação e apresentação primorosa do menu principal.
+            <p className="mt-4 text-xs leading-relaxed text-[#A6B0A8] sm:text-sm">
+              Criamos opções impecáveis para convidados com restrições alimentares com a mesma criatividade e sofisticação das receitas tradicionais, além de mantermos o bar e as opções de madrugada ativos até o final do evento.
             </p>
 
             <div className="mt-6 space-y-3">
               {dietaryCommitments.map((item) => (
                 <div key={item} className="flex items-start gap-2.5">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#A8845B]" />
-                  <span className="text-xs font-semibold text-[#2C3B32]">{item}</span>
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#D9B98B]" />
+                  <span className="text-xs font-semibold text-[#E6DDD0]">{item}</span>
                 </div>
               ))}
             </div>
 
             <div className="mt-8">
               <Button variant="gold" onClick={onOpenBooking}>
-                Agendar Minha Sessão de Degustação
+                Agendar Degustação Noturna
               </Button>
             </div>
           </div>
 
-          <div className="relative lg:col-span-6 overflow-hidden rounded-3xl shadow-xl">
+          <div className="relative lg:col-span-6 overflow-hidden rounded-3xl shadow-2xl border border-[#D9B98B]/20">
             <img
               src={img("photo-1555396273-367ea4eb4db5", 1000)}
-              alt="Cozinha com pratos sofisticados sendo finalizados pelos chefs"
+              alt="Chefs finalizando pratos sofisticados na cozinha"
               className="h-[420px] w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-8">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-8">
               <div className="text-white">
                 <ChefHat className="h-8 w-8 text-[#D9B98B]" />
-                <h4 className="mt-2 font-serif text-xl font-bold">Chef Executivo & Brigada</h4>
-                <p className="text-xs text-white/80">
-                  Mais de 30 profissionais em cozinha garantindo serviço pontual e pratos impecáveis.
+                <h4 className="mt-2 font-serif text-xl font-bold">Chef Executivo & Brigada de Cozinha</h4>
+                <p className="text-xs text-[#A6B0A8]">
+                  Mais de 30 profissionais em cozinha garantindo serviço rápido, fresco e apresentação de gala.
                 </p>
               </div>
             </div>

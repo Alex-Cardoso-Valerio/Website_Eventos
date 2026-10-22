@@ -9,6 +9,7 @@ import {
   CheckCircle2,
   Calendar,
   MessageCircle,
+  Sparkles,
 } from "lucide-react";
 import { PageHero, Button, Eyebrow } from "../components/SharedUI";
 
@@ -24,12 +25,12 @@ export const ContatoPage = () => {
   };
 
   return (
-    <div className="bg-[#FAF8F5]">
+    <div className="bg-[#0B0E0D] text-[#F5EFE6]">
       <PageHero
-        badge="ATENDIMENTO PERSONALIZADO"
+        badge="ATENDIMENTO & VISITAS"
         title="Fale Conosco"
-        highlight="Agende Sua Visita Exclusiva"
-        description="Venha conhecer pessoalmente o salão, caminhar pelos jardins e conversar com nossos consultores de eventos e chefs executivos."
+        highlight="Venha Conhecer a Noite Eterna"
+        description="Agende uma visita noturna para ver o salão iluminado com os lustres de cristal acesos, conhecer a acústica da pista de dança e conversar com nossa equipe."
       />
 
       <section className="mx-auto max-w-7xl px-6 py-20">
@@ -37,62 +38,62 @@ export const ContatoPage = () => {
           {/* Informações de Contato */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <Eyebrow>LOCALIZAÇÃO NOBRE</Eyebrow>
-              <h2 className="mt-2 font-serif text-3xl font-bold text-[#1A2421]">
-                Um Refúgio Sofisticado no Coração dos Jardins
+              <Eyebrow>LOCALIZAÇÃO PRIVILEGIADA</Eyebrow>
+              <h2 className="mt-2 font-serif text-3xl font-bold text-white">
+                No Coração Nobre dos Jardins
               </h2>
-              <p className="mt-3 text-xs leading-relaxed text-[#5b625d] sm:text-sm">
-                Fácil acesso pelas principais vias da cidade com serviço de valet privativo e port-cochère coberto.
+              <p className="mt-3 text-xs leading-relaxed text-[#A6B0A8] sm:text-sm">
+                Localização de prestígio e fácil acesso na Av. Europa, ponto de referência da cidade para grandes eventos e celebrações.
               </p>
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-xs border border-[#eae3d5]">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F6EFE7] text-[#A8845B]">
+              <div className="flex items-start gap-4 rounded-2xl bg-[#141A17] p-5 shadow-sm border border-[#D9B98B]/15">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1C2622] text-[#D9B98B]">
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-sm font-bold text-[#1A2421]">Endereço</h4>
-                  <p className="mt-1 text-xs text-[#6b716c]">
+                  <h4 className="font-serif text-sm font-bold text-white">Endereço</h4>
+                  <p className="mt-1 text-xs text-[#A6B0A8]">
                     Av. Europa, 1200 — Jardins, São Paulo - SP
                   </p>
-                  <p className="text-[11px] text-[#A8845B]">Estacionamento com Valet no local</p>
+                  <p className="text-[11px] text-[#D9B98B]">Ponto nobre de fácil acesso para convidados e transporte</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-xs border border-[#eae3d5]">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F6EFE7] text-[#A8845B]">
+              <div className="flex items-start gap-4 rounded-2xl bg-[#141A17] p-5 shadow-sm border border-[#D9B98B]/15">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1C2622] text-[#D9B98B]">
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-sm font-bold text-[#1A2421]">Telefones & WhatsApp</h4>
-                  <p className="mt-1 text-xs text-[#6b716c]">+55 (11) 98765-4321 (WhatsApp Concierge)</p>
-                  <p className="text-xs text-[#6b716c]">+55 (11) 3088-0000 (Central de Eventos)</p>
+                  <h4 className="font-serif text-sm font-bold text-white">Telefones & WhatsApp</h4>
+                  <p className="mt-1 text-xs text-[#A6B0A8]">+55 (11) 98765-4321 (WhatsApp Concierge)</p>
+                  <p className="text-xs text-[#A6B0A8]">+55 (11) 3088-0000 (Central de Atendimento)</p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4 rounded-2xl bg-white p-5 shadow-xs border border-[#eae3d5]">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#F6EFE7] text-[#A8845B]">
+              <div className="flex items-start gap-4 rounded-2xl bg-[#141A17] p-5 shadow-sm border border-[#D9B98B]/15">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#1C2622] text-[#D9B98B]">
                   <Clock className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="font-serif text-sm font-bold text-[#1A2421]">Horários de Visitas Guiadas</h4>
-                  <p className="mt-1 text-xs text-[#6b716c]">Terça a Sexta: 09h às 20h</p>
-                  <p className="text-xs text-[#6b716c]">Sábados e Domingos: 10h às 18h (mediante agendamento)</p>
+                  <h4 className="font-serif text-sm font-bold text-white">Horários de Visitas Guiadas</h4>
+                  <p className="mt-1 text-xs text-[#A6B0A8]">Terça a Sexta: 10h às 21h (ideal para visitas noturnas)</p>
+                  <p className="text-xs text-[#A6B0A8]">Sábados: 10h às 18h (mediante agendamento prévio)</p>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-2xl bg-[#1A2421] p-6 text-white shadow-lg">
-              <h4 className="font-serif text-lg font-bold">Atendimento Imediato via WhatsApp</h4>
-              <p className="mt-1 text-xs text-white/70">
-                Fale agora com nossa equipe para verificar disponibilidade de datas em tempo real.
+            <div className="rounded-3xl bg-gradient-to-br from-[#161D1A] to-[#1C2622] p-6 text-white shadow-xl border border-[#D9B98B]/20">
+              <h4 className="font-serif text-lg font-bold">Atendimento Rápido via WhatsApp</h4>
+              <p className="mt-1 text-xs text-[#A6B0A8]">
+                Consulte disponibilidade de datas para 2026 e 2027 diretamente com nossa concierge.
               </p>
               <a
                 href="https://wa.me/5511987654321"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#D9B98B] px-5 py-2.5 text-xs font-bold text-[#1A2421] transition-transform hover:scale-105"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#D9B98B] px-5 py-2.5 text-xs font-bold text-[#0B0E0D] transition-transform hover:scale-105 shadow-md shadow-[#D9B98B]/20"
               >
                 <MessageCircle className="h-4 w-4" /> Conversar no WhatsApp
               </a>
@@ -101,102 +102,102 @@ export const ContatoPage = () => {
 
           {/* Formulário de Contato */}
           <div className="lg:col-span-7">
-            <div className="rounded-3xl bg-white p-8 shadow-sm border border-[#eae3d5] md:p-10">
+            <div className="rounded-3xl bg-[#141A17] p-8 shadow-xl border border-[#D9B98B]/20 md:p-10">
               <Eyebrow>PROPOSTA PERSONALIZADA</Eyebrow>
-              <h3 className="mt-2 font-serif text-2xl font-bold text-[#1A2421]">
-                Envie Sua Mensagem ou Solicitação
+              <h3 className="mt-2 font-serif text-2xl font-bold text-white">
+                Envie Sua Mensagem
               </h3>
-              <p className="mt-1 text-xs text-[#6b716c]">
-                Retornamos em até 2 horas úteis com apresentação e estimativas de datas.
+              <p className="mt-1 text-xs text-[#A6B0A8]">
+                Nossa equipe de produção retornará com apresentação completa do espaço e estimativas.
               </p>
 
               {submitted ? (
                 <div className="py-16 text-center">
-                  <CheckCircle2 className="mx-auto h-16 w-16 text-[#A8845B]" />
-                  <h4 className="mt-4 font-serif text-2xl font-bold text-[#1A2421]">
+                  <CheckCircle2 className="mx-auto h-16 w-16 text-[#D9B98B]" />
+                  <h4 className="mt-4 font-serif text-2xl font-bold text-white">
                     Mensagem Recebida com Sucesso!
                   </h4>
-                  <p className="mt-2 text-sm text-[#6b716c]">
-                    Nossa equipe de concierge entrará em contato para agendar sua visita e apresentar os orçamentos.
+                  <p className="mt-2 text-sm text-[#A6B0A8]">
+                    Entraremos em contato para agendar sua visita ao salão e apresentar a proposta.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-semibold text-[#2C3B32]">Seu Nome</label>
+                      <label className="block text-xs font-semibold text-[#D4CEC4]">Seu Nome</label>
                       <input
                         required
                         type="text"
                         placeholder="Nome e Sobrenome"
-                        className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                        className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white placeholder-[#68736B] outline-none focus:border-[#D9B98B]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-[#2C3B32]">E-mail</label>
+                      <label className="block text-xs font-semibold text-[#D4CEC4]">E-mail</label>
                       <input
                         required
                         type="email"
                         placeholder="seuemail@exemplo.com"
-                        className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                        className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white placeholder-[#68736B] outline-none focus:border-[#D9B98B]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-semibold text-[#2C3B32]">WhatsApp / Celular</label>
+                      <label className="block text-xs font-semibold text-[#D4CEC4]">WhatsApp / Celular</label>
                       <input
                         required
                         type="tel"
                         placeholder="(11) 98765-4321"
-                        className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                        className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white placeholder-[#68736B] outline-none focus:border-[#D9B98B]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-[#2C3B32]">Tipo de Evento</label>
+                      <label className="block text-xs font-semibold text-[#D4CEC4]">Tipo de Evento</label>
                       <select
-                        className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                        className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white outline-none focus:border-[#D9B98B]"
                       >
-                        <option>Casamento</option>
-                        <option>Festa de 15 Anos</option>
-                        <option>Baile de Formatura</option>
-                        <option>Aniversário VIP</option>
-                        <option>Evento Corporativo</option>
+                        <option className="bg-[#111714]">Casamento de Gala</option>
+                        <option className="bg-[#111714]">Festa de 15 Anos / Debutante</option>
+                        <option className="bg-[#111714]">Baile de Formatura</option>
+                        <option className="bg-[#111714]">Aniversário / Festa Privada</option>
+                        <option className="bg-[#111714]">Evento Corporativo de Gala</option>
                       </select>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div>
-                      <label className="block text-xs font-semibold text-[#2C3B32]">Data Pretendida</label>
+                      <label className="block text-xs font-semibold text-[#D4CEC4]">Data Pretendida</label>
                       <input
                         type="text"
                         placeholder="Mês e Ano"
-                        className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                        className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white placeholder-[#68736B] outline-none focus:border-[#D9B98B]"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-[#2C3B32]">Número Estimado de Convidados</label>
+                      <label className="block text-xs font-semibold text-[#D4CEC4]">Número Estimado de Convidados</label>
                       <input
                         type="text"
                         placeholder="Ex: 300 pessoas"
-                        className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                        className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white placeholder-[#68736B] outline-none focus:border-[#D9B98B]"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-[#2C3B32]">Como podemos ajudar?</label>
+                    <label className="block text-xs font-semibold text-[#D4CEC4]">Como podemos ajudar?</label>
                     <textarea
                       rows={3}
-                      placeholder="Conte-nos os detalhes que gostaria de ver em seu evento..."
-                      className="mt-1 w-full rounded-xl border border-[#d9cfc2] bg-[#FAF8F5] px-4 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                      placeholder="Conte-nos o estilo de festa e atrativos que sonha ter em sua celebração..."
+                      className="mt-1 w-full rounded-xl border border-[#D9B98B]/20 bg-[#1A231F] px-4 py-2.5 text-xs text-white placeholder-[#68736B] outline-none focus:border-[#D9B98B]"
                     />
                   </div>
 
-                  <Button variant="dark" className="w-full justify-center">
-                    Enviar Solicitação de Orçamento <Send className="h-4 w-4" />
+                  <Button variant="gold" className="w-full justify-center">
+                    <Sparkles className="h-4 w-4" /> Enviar Solicitação de Orçamento
                   </Button>
                 </form>
               )}
