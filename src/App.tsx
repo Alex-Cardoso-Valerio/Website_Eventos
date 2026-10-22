@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   Play,
@@ -8,7 +9,6 @@ import {
   Camera,
   Users,
   CalendarCheck,
-  Gem,
   Sparkles,
   ShieldCheck,
   Palette,
@@ -24,67 +24,161 @@ import {
   Quote,
   Menu,
   X,
+  GlassWater,
+  PartyPopper,
+  GraduationCap,
+  Cake,
+  Building2,
+  CheckCircle2,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
-/* ----------------------------- Mock data ----------------------------- */
+/* ----------------------------- Imagens do Unsplash ----------------------------- */
 
 const img = (id: string, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&q=80&w=${w}`;
 
-const NAV_LINKS = ["Home", "About", "Our Services", "Wedding Themes", "Gallery", "Blog", "Contact"];
+/* ----------------------------- Dados Mockados ----------------------------- */
+
+const NAV_LINKS = [
+  { name: "Início", href: "#inicio" },
+  { name: "Sobre Nós", href: "#sobre" },
+  { name: "Serviços", href: "#servicos" },
+  { name: "Tipos de Eventos", href: "#tipos-de-eventos" },
+  { name: "Depoimentos", href: "#depoimentos" },
+  { name: "Contato", href: "#contato" },
+];
 
 const STATS: { icon: LucideIcon; value: string; label: string }[] = [
-  { icon: Heart, value: "500+", label: "Weddings Planned" },
-  { icon: Clock, value: "10+", label: "Years of Experience" },
-  { icon: Smile, value: "100%", label: "Client Happiness" },
+  { icon: Heart, value: "650+", label: "Eventos Realizados" },
+  { icon: Clock, value: "12+", label: "Anos de Tradição" },
+  { icon: Smile, value: "100%", label: "Clientes Encantados" },
 ];
 
 const SERVICES: { icon: LucideIcon; title: string; subtitle: string }[] = [
-  { icon: Gem, title: "Full Wedding Planning", subtitle: "End-to-end planning for a stress-free, magical celebration." },
-  { icon: Flower2, title: "Theme & Design", subtitle: "Unique themes, beautiful decor, and breathtaking setups." },
-  { icon: Camera, title: "Vendor Management", subtitle: "Best vendors, curated for quality and trust." },
-  { icon: Users, title: "Destination Weddings", subtitle: "Magical locations, memorable experiences, anywhere in the world." },
-  { icon: CalendarCheck, title: "On-Day Coordination", subtitle: "Relax and enjoy — we'll take care of the rest." },
+  {
+    icon: Sparkles,
+    title: "Assessoria & Planejamento",
+    subtitle: "Planejamento completo do início ao fim para uma celebração mágica e sem preocupações.",
+  },
+  {
+    icon: Palette,
+    title: "Cenografia & Decoração",
+    subtitle: "Projetos visuais exclusivos, ambientação refinada e arranjos florais de tirar o fôlego.",
+  },
+  {
+    icon: GlassWater,
+    title: "Gastronomia & Bar de Luxo",
+    subtitle: "Menus personalizados com alta gastronomia e coquetelaria contemporânea assinada.",
+  },
+  {
+    icon: Building2,
+    title: "Espaço Climatizado & Acústica",
+    subtitle: "Salão nobre com isolamento acústico, iluminação cênica e áreas externas exuberantes.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Coordenação do Dia",
+    subtitle: "Equipe sênior cuidando de cada detalhe para que você viva intensamente seu momento.",
+  },
 ];
 
 const FEATURES: { icon: LucideIcon; label: string }[] = [
-  { icon: Heart, label: "Personalized Approach" },
-  { icon: Palette, label: "Creative Designs" },
-  { icon: ShieldCheck, label: "Trusted Vendors" },
-  { icon: Sparkles, label: "Stress-Free Experience" },
+  { icon: Heart, label: "Atendimento Personalizado" },
+  { icon: Palette, label: "Cenários Exclusivos" },
+  { icon: ShieldCheck, label: "Fornecedores de Elite" },
+  { icon: Sparkles, label: "Experiência Sem Estresse" },
 ];
 
-const THEMES = [
-  { name: "Royal Indian", tags: "Grand • Traditional • Timeless", image: img("photo-1583939003579-730e3918a45a", 600) },
-  { name: "Beach Wedding", tags: "Breezy • Romantic • Serene", image: img("photo-1519741497674-611481863552", 600) },
-  { name: "Garden Party", tags: "Fresh • Elegant • Dreamy", image: img("photo-1478146896981-b80fe463b330", 600) },
-  { name: "Pastel Love", tags: "Soft • Chic • Modern", image: img("photo-1469371670807-013ccf25f16a", 600) },
-  { name: "Boho Chic", tags: "Free • Earthy • Beautiful", image: img("photo-1465495976277-4387d4b0b4c6", 600) },
+type EventCategory = "todos" | "casamentos" | "15anos" | "formaturas" | "corporativo";
+
+interface EventTheme {
+  category: EventCategory;
+  name: string;
+  tags: string;
+  image: string;
+  badge: string;
+}
+
+const EVENT_THEMES: EventTheme[] = [
+  {
+    category: "casamentos",
+    name: "Casamentos de Alto Padrão",
+    tags: "Romântico • Clássico • Memorável",
+    image: img("photo-1519741497674-611481863552", 700),
+    badge: "Casamentos",
+  },
+  {
+    category: "15anos",
+    name: "Festas de 15 Anos & Debutantes",
+    tags: "Glamour • Contemporâneo • Vibrante",
+    image: img("photo-1516450360452-9312f5e86fc7", 700),
+    badge: "15 Anos",
+  },
+  {
+    category: "formaturas",
+    name: "Bailes de Formatura",
+    tags: "Elegante • Triunfal • Inesquecível",
+    image: img("photo-1533105079780-92b9be482077", 700),
+    badge: "Formaturas",
+  },
+  {
+    category: "corporativo",
+    name: "Galas & Eventos Corporativos",
+    tags: "Sofisticado • Networking • Prestígio",
+    image: img("photo-1511795409834-ef04bbd61622", 700),
+    badge: "Corporativo",
+  },
+  {
+    category: "todos",
+    name: "Aniversários & Celebrações VIP",
+    tags: "Exclusivo • Acolhedor • Personalizado",
+    image: img("photo-1464366400600-7168b8af9bc3", 700),
+    badge: "Aniversários",
+  },
 ];
 
 const TESTIMONIALS = [
   {
-    name: "Riya & Aarav",
-    place: "Udaipur Wedding",
-    quote: "Eterna made our dream wedding come true! Everything was so beautifully planned — from the decor to the smallest details. We just enjoyed every moment!",
+    name: "Mariana & Leonardo",
+    type: "Casamento no Campo",
+    quote:
+      "A Eterna transformou o nosso casamento em um verdadeiro conto de fadas! A atenção a cada pequeno detalhe, a iluminação e a gastronomia deixaram todos os convidados maravilhados.",
     photo: img("photo-1537633552985-df8429e8048b", 300),
   },
   {
-    name: "Sofia & Daniel",
-    place: "Amalfi Coast Wedding",
-    quote: "From the first call to the last dance, the team handled everything with grace. Our guests are still talking about it.",
+    name: "Camila Vasconcelos",
+    type: "Festa de 15 Anos",
+    quote:
+      "A festa de 15 anos da minha filha foi um espetáculo! A cenografia moderna, a pista de dança e a organização impecável fizeram da noite a realização de um sonho.",
+    photo: img("photo-1534528741775-53994a69daeb", 300),
+  },
+  {
+    name: "Comissão Medicina USP",
+    type: "Baile de Formatura",
+    quote:
+      "Para 800 pessoas, a logística foi perfeita do primeiro minuto até o último brinde. A acústica, o serviço e a elegância do salão superaram qualquer expectativa.",
     photo: img("photo-1522673607200-164d1b6ce486", 300),
   },
 ];
 
-const QUICK_LINKS = ["Home", "About Us", "Our Services", "Wedding Themes", "Gallery", "Blog", "Contact"];
+const QUICK_LINKS = [
+  "Início",
+  "Sobre o Salão",
+  "Nossos Serviços",
+  "Tipos de Eventos",
+  "Galeria de Fotos",
+  "Depoimentos",
+  "Agendar Visita",
+];
 
 const CONTACTS: { icon: LucideIcon; text: string }[] = [
-  { icon: Phone, text: "+91 98765 43210" },
-  { icon: Mail, text: "hello@eternaevents.com" },
-  { icon: MapPin, text: "New Delhi, India" },
+  { icon: Phone, text: "+55 (11) 98765-4321" },
+  { icon: Mail, text: "contato@eternaeventos.com.br" },
+  { icon: MapPin, text: "Av. Europa, Jardins — São Paulo, SP" },
 ];
+
+/* ----------------------------- Ícones Sociais SVG ----------------------------- */
 
 type IconProps = { className?: string };
 
@@ -118,377 +212,859 @@ const Youtube = ({ className }: IconProps) => (
   </svg>
 );
 
-const SOCIALS: { icon: (p: IconProps) => ReactNode; label: string }[] = [
+const SOCIALS = [
   { icon: Instagram, label: "Instagram" },
   { icon: Facebook, label: "Facebook" },
   { icon: Youtube, label: "YouTube" },
 ];
 
 const IMAGES = {
-  hero: img("photo-1519225421980-715cb0215aed", 1400),
+  hero: img("photo-1519167758481-83f550bb49b3", 1400),
   about: img("photo-1510076857177-7470076d4098", 1400),
-  cta: img("photo-1606216794074-735e91aa2c92", 1600),
+  cta: img("photo-1511795409834-ef04bbd61622", 1600),
 };
 
-/* --------------------------- Shared components --------------------------- */
+/* ----------------------------- Componentes Reutilizáveis ----------------------------- */
 
 const Button = ({
   children,
   variant = "dark",
   className = "",
+  onClick,
 }: {
   children: ReactNode;
   variant?: "dark" | "light" | "gold";
   className?: string;
+  onClick?: () => void;
 }) => {
   const styles = {
-    dark: "bg-[#1A2421] text-white hover:bg-[#2C3B32]",
-    light: "bg-white/70 text-[#2C3B32] border border-[#d9cfc2] hover:bg-white",
-    gold: "bg-[#D9B98B] text-[#1A2421] hover:bg-[#cfa974]",
+    dark: "bg-[#1A2421] text-white hover:bg-[#2C3B32] shadow-sm",
+    light: "bg-white/80 text-[#2C3B32] border border-[#d9cfc2] hover:bg-white shadow-sm",
+    gold: "bg-[#D9B98B] text-[#1A2421] hover:bg-[#cfa974] font-semibold shadow-md",
   }[variant];
   return (
-    <button
-      className={`inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-xs font-medium tracking-wide transition-colors ${styles} ${className}`}
+    <motion.button
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.98 }}
+      onClick={onClick}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-xs font-medium tracking-wide transition-all ${styles} ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
 const Eyebrow = ({ children }: { children: ReactNode }) => (
-  <p className="text-[11px] font-medium uppercase tracking-[0.25em] text-[#A8845B]">{children}</p>
+  <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-[#A8845B]">
+    {children}
+  </p>
 );
 
 const Logo = ({ light = false }: { light?: boolean }) => (
-  <a href="#home" className="flex items-center gap-2">
-    <Flower2 className="h-7 w-7 text-[#A8845B]" strokeWidth={1.2} />
-    <span className="leading-none">
-      <span className={`block font-serif text-xl tracking-[0.15em] ${light ? "text-white" : "text-[#1A2421]"}`}>ETERNA</span>
-      <span className="block text-[8px] uppercase tracking-[0.25em] text-[#A8845B]">Weddings & Beyond</span>
+  <a href="#inicio" className="group flex items-center gap-2.5">
+    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#A8845B]/10 transition-transform duration-300 group-hover:rotate-12">
+      <Flower2 className="h-5 w-5 text-[#A8845B]" strokeWidth={1.4} />
+    </div>
+    <span className="leading-tight">
+      <span
+        className={`block font-serif text-2xl tracking-[0.16em] ${
+          light ? "text-white" : "text-[#1A2421]"
+        }`}
+      >
+        ETERNA
+      </span>
+      <span className="block text-[8px] uppercase tracking-[0.3em] text-[#A8845B]">
+        Espaço & Eventos de Luxo
+      </span>
     </span>
   </a>
 );
 
-/* ------------------------------- Sections ------------------------------- */
+/* ----------------------------- Modal de Agendamento / Orçamento ----------------------------- */
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
+interface BookingModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const BookingModal = ({ isOpen, onClose }: BookingModalProps) => {
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      onClose();
+    }, 2500);
+  };
+
   return (
-    <header className="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur">
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          />
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="relative w-full max-w-lg rounded-2xl bg-[#FAF8F5] p-6 shadow-2xl md:p-8"
+          >
+            <button
+              onClick={onClose}
+              className="absolute right-4 top-4 rounded-full p-2 text-[#2C3B32] hover:bg-[#F6EFE7]"
+              aria-label="Fechar"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {submitted ? (
+              <div className="py-10 text-center">
+                <CheckCircle2 className="mx-auto h-14 w-14 text-[#A8845B]" />
+                <h3 className="mt-4 font-serif text-2xl text-[#1A2421]">Solicitação Enviada!</h3>
+                <p className="mt-2 text-sm text-[#6b716c]">
+                  Nossa concierge entrará em contato em breve para apresentar opções exclusivas para o seu evento.
+                </p>
+              </div>
+            ) : (
+              <div>
+                <Eyebrow>Planeje Seu Evento dos Sonhos</Eyebrow>
+                <h3 className="mt-2 font-serif text-2xl text-[#1A2421]">Agende uma Visita ao Espaço</h3>
+                <p className="mt-1 text-xs text-[#6b716c]">
+                  Preencha os dados e receba uma proposta personalizada com degustação inclusa.
+                </p>
+
+                <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-[#2C3B32]">Seu Nome</label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="Ex: Ana Clara Martins"
+                      className="mt-1 w-full rounded-lg border border-[#d9cfc2] bg-white px-3.5 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                    />
+                  </div>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <div>
+                      <label className="block text-xs font-semibold text-[#2C3B32]">WhatsApp / Telefone</label>
+                      <input
+                        required
+                        type="tel"
+                        placeholder="(11) 99999-9999"
+                        className="mt-1 w-full rounded-lg border border-[#d9cfc2] bg-white px-3.5 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-[#2C3B32]">Tipo de Evento</label>
+                      <select
+                        required
+                        className="mt-1 w-full rounded-lg border border-[#d9cfc2] bg-white px-3.5 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                      >
+                        <option value="casamento">Casamento</option>
+                        <option value="15anos">Festa de 15 Anos</option>
+                        <option value="formatura">Baile de Formatura</option>
+                        <option value="aniversario">Aniversário / Festa Privada</option>
+                        <option value="corporativo">Evento Corporativo</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold text-[#2C3B32]">Data Prevista / Número Estimado de Convidados</label>
+                    <input
+                      type="text"
+                      placeholder="Ex: Outubro / 2026 — 250 convidados"
+                      className="mt-1 w-full rounded-lg border border-[#d9cfc2] bg-white px-3.5 py-2.5 text-xs outline-none focus:border-[#A8845B]"
+                    />
+                  </div>
+
+                  <Button variant="dark" className="mt-4 w-full justify-center">
+                    Enviar Solicitação Exclusiva <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </form>
+              </div>
+            )}
+          </motion.div>
+        </div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+/* ----------------------------- Barra de Navegação ----------------------------- */
+
+const Navbar = ({ onOpenBooking }: { onOpenBooking: () => void }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md transition-all duration-300 border-b border-[#eae3d5]">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Logo />
-        <ul className="hidden items-center gap-7 text-xs text-[#2C3B32] lg:flex">
-          {NAV_LINKS.map((l, i) => (
-            <li key={l}>
+
+        <ul className="hidden items-center gap-8 text-xs font-medium text-[#2C3B32] lg:flex">
+          {NAV_LINKS.map((link, i) => (
+            <li key={link.name}>
               <a
-                href={`#${l.toLowerCase().replace(/\s/g, "-")}`}
-                className={`pb-1 hover:text-[#A8845B] ${i === 0 ? "border-b border-[#2C3B32]" : ""}`}
+                href={link.href}
+                className={`relative py-1 transition-colors hover:text-[#A8845B] ${
+                  i === 0 ? "text-[#1A2421] font-semibold" : ""
+                }`}
               >
-                {l}
+                {link.name}
+                {i === 0 && (
+                  <span className="absolute bottom-0 left-0 h-[1.5px] w-full bg-[#1A2421]" />
+                )}
               </a>
             </li>
           ))}
         </ul>
-        <Button className="hidden lg:inline-flex rounded-full">
-          Plan Your Dream Wedding <ArrowRight className="h-3.5 w-3.5" />
-        </Button>
-        <button className="lg:hidden text-[#1A2421]" onClick={() => setOpen(!open)} aria-label="Menu">
-          {open ? <X /> : <Menu />}
+
+        <div className="hidden lg:block">
+          <Button variant="dark" onClick={onOpenBooking}>
+            Planeje Seu Evento <ArrowRight className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+
+        <button
+          className="rounded-lg p-2 text-[#1A2421] lg:hidden hover:bg-[#F6EFE7]"
+          onClick={() => setOpen(!open)}
+          aria-label="Abrir Menu"
+        >
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </nav>
-      {open && (
-        <div className="space-y-3 border-t border-[#eadfce] px-6 py-4 lg:hidden">
-          {NAV_LINKS.map((l) => (
-            <a key={l} href={`#${l.toLowerCase().replace(/\s/g, "-")}`} className="block text-sm text-[#2C3B32]">
-              {l}
-            </a>
-          ))}
-          <Button className="w-full rounded-full">Plan Your Dream Wedding</Button>
-        </div>
-      )}
+
+      {/* Menu Mobile */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-[#eadfce] bg-[#FAF8F5] px-6 py-5 lg:hidden"
+          >
+            <ul className="space-y-4">
+              {NAV_LINKS.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    onClick={() => setOpen(false)}
+                    className="block text-sm font-medium text-[#2C3B32] hover:text-[#A8845B]"
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-5">
+              <Button
+                variant="dark"
+                className="w-full justify-center"
+                onClick={() => {
+                  setOpen(false);
+                  onOpenBooking();
+                }}
+              >
+                Planeje Seu Evento <ArrowRight className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
 
-const Hero = () => (
-  <section id="home" className="relative overflow-hidden bg-[#F6EFE7]">
-    <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-2 lg:py-16">
-      <div className="order-2 lg:order-1">
-        <Eyebrow>Let's turn your</Eyebrow>
-        <h1 className="mt-4 font-serif text-5xl leading-tight text-[#1A2421] md:text-6xl">
-          Dream Day
-          <span className="mt-1 block font-serif text-4xl italic text-[#2C3B32] md:text-5xl">Into a Timeless Story</span>
-        </h1>
-        <p className="mt-5 text-sm font-medium text-[#2C3B32]">Beautifully planned. Perfectly you.</p>
-        <p className="mt-3 max-w-md text-sm leading-relaxed text-[#5b625d]">
-          At Eterna, we don't just plan weddings, we create unforgettable experiences filled with love, beauty and
-          meaningful moments.
-        </p>
-        <div className="mt-7 flex flex-wrap gap-3">
-          <Button>
-            Plan Your Wedding <ArrowRight className="h-3.5 w-3.5" />
-          </Button>
-          <Button variant="light">
-            View Our Work <Play className="h-3.5 w-3.5 rounded-full border border-[#2C3B32] p-0.5" />
-          </Button>
-        </div>
-        <dl className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {STATS.map(({ icon: Icon, value, label }) => (
-            <div key={label} className="flex items-center gap-3">
-              <Icon className="h-7 w-7 text-[#A8845B]" strokeWidth={1.2} />
-              <div>
-                <dt className="font-serif text-xl text-[#1A2421]">{value}</dt>
-                <dd className="text-[11px] text-[#6b716c]">{label}</dd>
+/* ----------------------------- Hero Section ----------------------------- */
+
+const Hero = ({ onOpenBooking }: { onOpenBooking: () => void }) => {
+  return (
+    <section id="inicio" className="relative overflow-hidden bg-[#F6EFE7] pt-8 pb-16 lg:py-20">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-12">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="order-2 lg:order-1 lg:col-span-7"
+        >
+          <div className="flex items-center gap-2">
+            <span className="h-[1px] w-8 bg-[#A8845B]" />
+            <Eyebrow>VAMOS TRANSFORMAR O SEU DIA</Eyebrow>
+          </div>
+
+          <h1 className="mt-4 font-serif text-5xl leading-[1.15] text-[#1A2421] sm:text-6xl md:text-7xl">
+            Momentos Únicos
+            <span
+              style={{ fontFamily: "Alex Brush, cursive" }}
+              className="mt-2 block text-5xl font-normal text-[#A8845B] sm:text-6xl md:text-7xl"
+            >
+              Em Histórias Eternas
+            </span>
+          </h1>
+
+          <p className="mt-5 text-base font-semibold text-[#2C3B32]">
+            Planejado com perfeição. Feito sob medida para você.
+          </p>
+
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#5b625d] sm:text-base">
+            O Eterna é um espaço nobre e completo para celebrações de alto padrão.
+            Cuidamos de cada detalhe com maestria — de casamentos deslumbrantes e festas de 15 anos a formaturas, aniversários e encontros corporativos inesquecíveis.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Button variant="dark" onClick={onOpenBooking}>
+              Planejar Meu Evento <ArrowRight className="h-3.5 w-3.5" />
+            </Button>
+            <a href="#sobre">
+              <Button variant="light">
+                Conhecer o Espaço{" "}
+                <Play className="h-3.5 w-3.5 rounded-full border border-[#2C3B32] p-0.5" />
+              </Button>
+            </a>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 border-t border-[#e2d6c5] pt-8 sm:grid-cols-3">
+            {STATS.map(({ icon: Icon, value, label }) => (
+              <motion.div
+                key={label}
+                whileHover={{ y: -3 }}
+                className="flex items-center gap-3.5"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#FAF8F5] shadow-xs">
+                  <Icon className="h-6 w-6 text-[#A8845B]" strokeWidth={1.3} />
+                </div>
+                <div>
+                  <h4 className="font-serif text-2xl font-bold text-[#1A2421]">{value}</h4>
+                  <p className="text-xs text-[#6b716c]">{label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative order-1 lg:order-2 lg:col-span-5"
+        >
+          <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+            <img
+              src={IMAGES.hero}
+              alt="Salão nobre de eventos decorado para grande celebração"
+              className="h-[380px] w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-[480px] md:h-[540px]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+
+            <div className="absolute bottom-6 left-6 right-6 rounded-2xl bg-white/90 p-5 backdrop-blur-md shadow-lg">
+              <div className="flex items-center gap-3">
+                <Sparkles className="h-5 w-5 text-[#A8845B]" />
+                <p className="font-serif text-base italic text-[#1A2421]">
+                  "Sua celebração merece algo verdadeiramente extraordinário."
+                </p>
               </div>
             </div>
-          ))}
-        </dl>
+          </div>
+        </motion.div>
       </div>
-      <div className="relative order-1 lg:order-2">
-        <img src={IMAGES.hero} alt="Couple on their wedding day" className="h-80 w-full rounded-2xl object-cover shadow-xl md:h-[28rem]" />
-        <div className="absolute inset-y-0 right-0 hidden items-center rounded-r-2xl bg-gradient-to-l from-black/40 to-transparent p-8 md:flex">
-          <p className="max-w-[10rem] font-serif text-2xl leading-snug text-white">Your Love Story Deserves Something Extraordinary</p>
-        </div>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
-const ServiceCard = ({ icon: Icon, title, subtitle }: { icon: LucideIcon; title: string; subtitle: string }) => (
-  <article className="rounded-xl bg-white/70 p-6 text-center shadow-sm transition-shadow hover:shadow-md">
-    <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#F6EFE7]">
-      <Icon className="h-6 w-6 text-[#A8845B]" strokeWidth={1.2} />
+/* ----------------------------- Serviços ----------------------------- */
+
+const ServiceCard = ({
+  icon: Icon,
+  title,
+  subtitle,
+  index,
+}: {
+  icon: LucideIcon;
+  title: string;
+  subtitle: string;
+  index: number;
+}) => (
+  <motion.article
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+    whileHover={{ y: -8, boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.08)" }}
+    className="group flex flex-col items-center rounded-2xl bg-white/80 p-6 text-center shadow-xs transition-all duration-300 border border-[#eae3d5]"
+  >
+    <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F6EFE7] transition-colors duration-300 group-hover:bg-[#1A2421]">
+      <Icon
+        className="h-7 w-7 text-[#A8845B] transition-colors duration-300 group-hover:text-[#D9B98B]"
+        strokeWidth={1.3}
+      />
     </div>
-    <h3 className="mt-4 text-sm font-semibold text-[#1A2421]">{title}</h3>
-    <p className="mt-2 text-xs leading-relaxed text-[#6b716c]">{subtitle}</p>
-  </article>
+    <h3 className="mt-5 font-serif text-base font-bold text-[#1A2421]">{title}</h3>
+    <p className="mt-2.5 text-xs leading-relaxed text-[#6b716c]">{subtitle}</p>
+  </motion.article>
 );
 
 const Services = () => (
-  <section id="our-services" className="bg-[#FAF8F5] px-6 py-16">
+  <section id="servicos" className="bg-[#FAF8F5] px-6 py-20">
     <div className="mx-auto max-w-7xl">
       <div className="text-center">
-        <Eyebrow>— What we do —</Eyebrow>
-        <h2 className="mt-3 font-serif text-3xl text-[#1A2421] md:text-4xl">Our Wedding Planning Services</h2>
-        <p className="mt-3 text-xs text-[#6b716c]">
-          From the first idea to the final "I do" — we handle every detail with love and care.
+        <Eyebrow>— O QUE FAZEMOS —</Eyebrow>
+        <h2 className="mt-3 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
+          Nossos Serviços Para Grandes Eventos
+        </h2>
+        <p className="mx-auto mt-3 max-w-xl text-xs text-[#6b716c] sm:text-sm">
+          Da primeira concepção ao brinde final — cuidamos de cada detalhe com paixão, sofisticação e excelência.
         </p>
       </div>
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {SERVICES.map((s) => (
-          <ServiceCard key={s.title} {...s} />
+
+      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        {SERVICES.map((s, idx) => (
+          <ServiceCard key={s.title} index={idx} {...s} />
         ))}
       </div>
     </div>
   </section>
 );
 
-const About = () => (
-  <section id="about" className="grid bg-[#F6EFE7] lg:grid-cols-2">
-    <img src={IMAGES.about} alt="Wedding arch by the lake" className="h-72 w-full object-cover lg:h-full lg:min-h-[26rem]" />
-    <div className="flex flex-col justify-center px-6 py-12 lg:px-16">
-      <Eyebrow>About Eterna</Eyebrow>
-      <h2 className="mt-3 font-serif text-3xl leading-tight text-[#1A2421] md:text-4xl">
-        More Than Planners, We're Your Wedding Partners
-      </h2>
-      <p className="mt-4 max-w-lg text-sm leading-relaxed text-[#5b625d]">
-        We believe every love story is unique, and so should be every wedding. At Eterna, we blend creativity,
-        tradition, and flawless execution to create celebrations that feel like you — elegant, intimate, and
-        unforgettable.
-      </p>
-      <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
-        {FEATURES.map(({ icon: Icon, label }) => (
-          <div key={label} className="text-center">
-            <Icon className="mx-auto h-6 w-6 text-[#A8845B]" strokeWidth={1.2} />
-            <p className="mt-2 text-[11px] text-[#2C3B32]">{label}</p>
-          </div>
-        ))}
-      </div>
-      <div className="mt-8">
-        <Button>
-          Our Story <ArrowRight className="h-3.5 w-3.5" />
-        </Button>
-      </div>
-    </div>
-  </section>
-);
+/* ----------------------------- Sobre Nós ----------------------------- */
 
-const ThemeCard = ({ name, tags, image }: { name: string; tags: string; image: string }) => (
-  <article className="group">
-    <div className="overflow-hidden rounded-lg">
-      <img src={image} alt={name} className="h-40 w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-    </div>
-    <h3 className="mt-3 text-center text-xs font-semibold text-[#1A2421]">{name}</h3>
-    <p className="mt-1 text-center text-[10px] text-[#6b716c]">{tags}</p>
-  </article>
-);
+const About = ({ onOpenBooking }: { onOpenBooking: () => void }) => (
+  <section id="sobre" className="relative overflow-hidden bg-[#F6EFE7]">
+    <div className="mx-auto grid max-w-7xl items-center lg:grid-cols-12">
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="relative lg:col-span-6"
+      >
+        <img
+          src={IMAGES.about}
+          alt="Cenário deslumbrante com pergolado e vista panorâmica"
+          className="h-[360px] w-full object-cover lg:h-[620px]"
+        />
 
-const Themes = () => (
-  <section id="wedding-themes" className="bg-[#FAF8F5] px-6 py-16">
-    <div className="mx-auto max-w-7xl">
-      <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-        <div>
-          <Eyebrow>Wedding Themes</Eyebrow>
-          <h2 className="mt-3 font-serif text-3xl text-[#1A2421] md:text-4xl">Themes That Speak Your Style</h2>
-          <p className="mt-2 text-xs text-[#6b716c]">From royal traditions to modern elegance — discover a theme that feels like you.</p>
+        <div className="absolute top-6 left-6 rounded-xl bg-white/85 px-4 py-3 backdrop-blur-sm shadow-md">
+          <p
+            style={{ fontFamily: "Alex Brush, cursive" }}
+            className="text-2xl text-[#1A2421]"
+          >
+            Porque cada detalhe importa... ♡
+          </p>
         </div>
-        <a href="#gallery" className="inline-flex items-center gap-1 text-xs text-[#2C3B32] hover:text-[#A8845B]">
-          View All Themes <ArrowRight className="h-3.5 w-3.5" />
-        </a>
-      </div>
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {THEMES.map((t) => (
-          <ThemeCard key={t.name} {...t} />
-        ))}
-      </div>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="flex flex-col justify-center px-6 py-14 lg:col-span-6 lg:px-16"
+      >
+        <Eyebrow>SOBRE O ESPAÇO ETERNA</Eyebrow>
+        <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-[#1A2421] sm:text-4xl">
+          Mais Que Um Salão, Os Parceiros da Sua Celebração
+        </h2>
+        <p className="mt-4 text-sm leading-relaxed text-[#5b625d]">
+          Acreditamos que cada celebração carrega uma alma própria. No Eterna, unimos arquitetura imponente, gastronomia premiada e execução primorosa para dar vida a momentos que refletem a sua identidade — seja um casamento intimista, uma estrondosa festa de 15 anos, um triunfal baile de formatura ou uma convenção empresarial de prestígio.
+        </p>
+
+        <div className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-4">
+          {FEATURES.map(({ icon: Icon, label }) => (
+            <motion.div
+              key={label}
+              whileHover={{ y: -4 }}
+              className="rounded-xl bg-white/50 p-3.5 text-center shadow-xs"
+            >
+              <Icon className="mx-auto h-6 w-6 text-[#A8845B]" strokeWidth={1.3} />
+              <p className="mt-2 text-xs font-semibold text-[#2C3B32]">{label}</p>
+            </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-9">
+          <Button variant="dark" onClick={onOpenBooking}>
+            Conhecer Nossa Estrutura <ArrowRight className="h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </motion.div>
     </div>
   </section>
 );
 
-const Testimonials = () => {
-  const [index, setIndex] = useState(0);
-  const t = TESTIMONIALS[index];
-  const go = (d: number) => setIndex((index + d + TESTIMONIALS.length) % TESTIMONIALS.length);
+/* ----------------------------- Tipos de Eventos / Estilos ----------------------------- */
+
+const Themes = ({ onOpenBooking }: { onOpenBooking: () => void }) => {
+  const [activeCategory, setActiveCategory] = useState<EventCategory>("todos");
+
+  const categories: { key: EventCategory; label: string; icon: LucideIcon }[] = [
+    { key: "todos", label: "Todos os Eventos", icon: Sparkles },
+    { key: "casamentos", label: "Casamentos", icon: Heart },
+    { key: "15anos", label: "15 Anos", icon: PartyPopper },
+    { key: "formaturas", label: "Formaturas", icon: GraduationCap },
+    { key: "corporativo", label: "Corporativo", icon: Building2 },
+  ];
+
+  const filteredThemes =
+    activeCategory === "todos"
+      ? EVENT_THEMES
+      : EVENT_THEMES.filter((theme) => theme.category === activeCategory || theme.category === "todos");
+
   return (
-    <section id="gallery" className="bg-[#F6EFE7] px-6 py-14">
-      <div className="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[1fr_2fr_1fr]">
-        <div>
-          <h2 className="font-serif text-3xl leading-tight text-[#1A2421]">
-            Real Stories
+    <section id="tipos-de-eventos" className="bg-[#FAF8F5] px-6 py-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <Eyebrow>CELEBRAÇÕES PARA CADA MOMENTO</Eyebrow>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-[#1A2421] sm:text-4xl">
+              Eventos Que Expressam Sua Essência
+            </h2>
+            <p className="mt-2 text-xs text-[#6b716c] sm:text-sm">
+              Casamentos, debutantes, formaturas, aniversários e comemorações corporativas de luxo.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            {categories.map(({ key, label, icon: Icon }) => (
+              <button
+                key={key}
+                onClick={() => setActiveCategory(key)}
+                className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-all ${
+                  activeCategory === key
+                    ? "bg-[#1A2421] text-white shadow-sm"
+                    : "bg-[#F6EFE7] text-[#2C3B32] hover:bg-[#eae0d2]"
+                }`}
+              >
+                <Icon className="h-3.5 w-3.5" />
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <motion.div layout className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <AnimatePresence>
+            {filteredThemes.map((item) => (
+              <motion.article
+                key={item.name}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4 }}
+                whileHover={{ y: -6 }}
+                className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white shadow-sm border border-[#eae3d5]"
+                onClick={onOpenBooking}
+              >
+                <div className="relative h-60 overflow-hidden sm:h-52">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  <span className="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#1A2421] backdrop-blur-xs">
+                    {item.badge}
+                  </span>
+                </div>
+
+                <div className="p-4 text-center">
+                  <h3 className="font-serif text-sm font-bold text-[#1A2421]">{item.name}</h3>
+                  <p className="mt-1 text-[11px] text-[#A8845B] font-medium">{item.tags}</p>
+                </div>
+              </motion.article>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+/* ----------------------------- Depoimentos ----------------------------- */
+
+const Testimonials = ({ onOpenBooking }: { onOpenBooking: () => void }) => {
+  const [index, setIndex] = useState(0);
+  const current = TESTIMONIALS[index];
+
+  const go = (delta: number) => {
+    setIndex((prev) => (prev + delta + TESTIMONIALS.length) % TESTIMONIALS.length);
+  };
+
+  return (
+    <section id="depoimentos" className="relative bg-[#F6EFE7] px-6 py-20">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-12">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="lg:col-span-4"
+        >
+          <Eyebrow>HISTÓRIAS DE SUCESSO</Eyebrow>
+          <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-[#1A2421] sm:text-4xl">
+            Histórias Reais,
             <br />
-            Beautiful Memories
+            Memórias Eternas
           </h2>
-          <p className="mt-3 text-xs text-[#6b716c]">Nothing makes us happier than our couples' smiles.</p>
-          <div className="mt-5">
-            <Button>
-              Read More Stories <ArrowRight className="h-3.5 w-3.5" />
+          <p className="mt-3 text-xs leading-relaxed text-[#6b716c] sm:text-sm">
+            O sorriso dos nossos clientes e anfitriões é o maior testemunho do nosso compromisso com a perfeição.
+          </p>
+          <div className="mt-6">
+            <Button variant="dark" onClick={onOpenBooking}>
+              Fazer Parte Dessas Histórias <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </div>
-        </div>
+        </motion.div>
 
-        <figure className="flex flex-col items-center gap-5 rounded-2xl bg-white/70 p-6 shadow-sm sm:flex-row">
-          <img src={t.photo} alt={t.name} className="h-24 w-24 shrink-0 rounded-full object-cover" />
-          <div>
-            <Quote className="h-6 w-6 text-[#A8845B]" />
-            <blockquote className="mt-2 text-sm leading-relaxed text-[#2C3B32]">{t.quote}</blockquote>
-            <figcaption className="mt-3 flex items-center justify-between">
-              <span>
-                <span className="block text-xs font-semibold text-[#1A2421]">— {t.name}</span>
-                <span className="block text-[11px] text-[#6b716c]">{t.place}</span>
-              </span>
-              <span className="flex gap-2">
-                <button onClick={() => go(-1)} aria-label="Previous" className="rounded-full border border-[#d9cfc2] p-1.5 text-[#2C3B32] hover:bg-[#F6EFE7]">
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button onClick={() => go(1)} aria-label="Next" className="rounded-full border border-[#d9cfc2] p-1.5 text-[#2C3B32] hover:bg-[#F6EFE7]">
-                  <ChevronRight className="h-4 w-4" />
-                </button>
-              </span>
-            </figcaption>
-          </div>
-        </figure>
+        <div className="lg:col-span-8">
+          <AnimatePresence mode="wait">
+            <motion.figure
+              key={index}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.35 }}
+              className="relative flex flex-col items-center gap-6 rounded-3xl bg-white/80 p-8 shadow-sm border border-[#eae3d5] sm:flex-row"
+            >
+              <img
+                src={current.photo}
+                alt={current.name}
+                className="h-28 w-28 shrink-0 rounded-full object-cover ring-4 ring-[#FAF8F5] shadow-md"
+              />
 
-        <div className="hidden items-center justify-center gap-3 lg:flex">
-          <Award className="h-10 w-10 text-[#A8845B]" strokeWidth={1} />
-          <p className="font-serif text-xl italic text-[#A8845B]">Better Together</p>
+              <div className="flex-1">
+                <Quote className="h-8 w-8 text-[#A8845B]" />
+                <blockquote className="mt-3 text-sm italic leading-relaxed text-[#2C3B32] sm:text-base">
+                  "{current.quote}"
+                </blockquote>
+
+                <figcaption className="mt-5 flex items-center justify-between border-t border-[#eae3d5] pt-4">
+                  <div>
+                    <h4 className="font-serif text-sm font-bold text-[#1A2421]">{current.name}</h4>
+                    <p className="text-xs text-[#A8845B]">{current.type}</p>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => go(-1)}
+                      aria-label="Depoimento Anterior"
+                      className="rounded-full border border-[#d9cfc2] bg-white p-2 text-[#2C3B32] transition-colors hover:bg-[#1A2421] hover:text-white"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    <button
+                      onClick={() => go(1)}
+                      aria-label="Próximo Depoimento"
+                      className="rounded-full border border-[#d9cfc2] bg-white p-2 text-[#2C3B32] transition-colors hover:bg-[#1A2421] hover:text-white"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </figcaption>
+              </div>
+            </motion.figure>
+          </AnimatePresence>
         </div>
       </div>
     </section>
   );
 };
 
-const BottomCTA = () => (
-  <section className="relative overflow-hidden bg-[#1A2421]">
-    <img src={IMAGES.cta} alt="" className="absolute inset-0 h-full w-full object-cover opacity-25" />
-    <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-14 md:flex-row md:items-center">
-      <div>
-        <h2 className="font-serif text-3xl leading-tight text-white md:text-4xl">
-          Your Dream Wedding
-          <br />
-          Starts Here
+/* ----------------------------- Banner Final CTA ----------------------------- */
+
+const BottomCTA = ({ onOpenBooking }: { onOpenBooking: () => void }) => (
+  <section className="relative overflow-hidden bg-[#1A2421] px-6 py-20 text-white">
+    <img
+      src={IMAGES.cta}
+      alt="Salão iluminado à noite"
+      className="absolute inset-0 h-full w-full object-cover opacity-20"
+    />
+    <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 md:flex-row md:items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="max-w-2xl"
+      >
+        <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[#D9B98B]">
+          AGENDE SUA DEGUSTAÇÃO & VISITA
+        </p>
+        <h2 className="mt-3 font-serif text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
+          O Seu Evento dos Sonhos Começa Aqui
         </h2>
-        <p className="mt-3 text-xs text-white/70">Let's create a celebration you'll cherish forever.</p>
-        <div className="mt-6">
-          <Button variant="gold">
-            Plan Your Wedding <ArrowRight className="h-3.5 w-3.5" />
+        <p className="mt-3 text-sm text-white/80">
+          Datas exclusivas para 2026 e 2027 já estão abertas. Reserve um horário com nossa equipe de concierge.
+        </p>
+        <div className="mt-8">
+          <Button variant="gold" onClick={onOpenBooking}>
+            Solicitar Orçamento Exclusivo <ArrowRight className="h-4 w-4" />
           </Button>
         </div>
-      </div>
-      <p className="font-serif text-2xl italic text-[#D9B98B]">Together is a beautiful place to be</p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-right"
+      >
+        <p
+          style={{ fontFamily: "Alex Brush, cursive" }}
+          className="text-4xl text-[#D9B98B] sm:text-5xl"
+        >
+          Criar memórias é a nossa maior arte... ♡
+        </p>
+      </motion.div>
     </div>
   </section>
 );
 
-const Footer = () => (
-  <footer id="contact" className="bg-[#FAF8F5] px-6 pt-12 text-[#2C3B32]">
-    <div className="mx-auto grid max-w-7xl gap-10 pb-10 sm:grid-cols-2 lg:grid-cols-4">
-      <div>
-        <Logo />
-        <p className="mt-4 text-xs text-[#6b716c]">Beautiful Weddings. Lasting Memories.</p>
-      </div>
-      <div>
-        <h4 className="text-sm font-semibold">Quick Links</h4>
-        <ul className="mt-4 space-y-2 text-xs text-[#6b716c]">
-          {QUICK_LINKS.map((l) => (
-            <li key={l}>
-              <a href="#" className="hover:text-[#A8845B]">{l}</a>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h4 className="text-sm font-semibold">Get In Touch</h4>
-        <ul className="mt-4 space-y-3 text-xs text-[#6b716c]">
-          {CONTACTS.map(({ icon: Icon, text }) => (
-            <li key={text} className="flex items-center gap-2">
-              <Icon className="h-3.5 w-3.5 text-[#1A2421]" /> {text}
-            </li>
-          ))}
-        </ul>
-        <div className="mt-4 flex gap-3">
-          {SOCIALS.map(({ icon: Icon, label }) => (
-            <a key={label} href="#" aria-label={label} className="rounded-full bg-[#1A2421] p-2 text-white hover:bg-[#2C3B32]">
-              <Icon className="h-3.5 w-3.5" />
-            </a>
-          ))}
+/* ----------------------------- Rodapé ----------------------------- */
+
+const Footer = ({ onOpenBooking }: { onOpenBooking: () => void }) => {
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleNewsletter = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterEmail) {
+      setSubscribed(true);
+      setTimeout(() => {
+        setNewsletterEmail("");
+        setSubscribed(false);
+      }, 3000);
+    }
+  };
+
+  return (
+    <footer id="contato" className="bg-[#FAF8F5] px-6 pt-16 text-[#2C3B32]">
+      <div className="mx-auto grid max-w-7xl gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <Logo />
+          <p className="mt-4 text-xs leading-relaxed text-[#6b716c]">
+            O salão de festas e espaço de eventos de alto padrão que transforma casamentos, 15 anos, formaturas e celebrações corporativas em obras de arte.
+          </p>
+        </div>
+
+        <div>
+          <h4 className="font-serif text-sm font-bold text-[#1A2421]">Navegação Rápida</h4>
+          <ul className="mt-4 space-y-2.5 text-xs text-[#6b716c]">
+            {QUICK_LINKS.map((link) => (
+              <li key={link}>
+                <a
+                  href="#inicio"
+                  onClick={(e) => {
+                    if (link === "Agendar Visita") {
+                      e.preventDefault();
+                      onOpenBooking();
+                    }
+                  }}
+                  className="transition-colors hover:text-[#A8845B]"
+                >
+                  {link}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h4 className="font-serif text-sm font-bold text-[#1A2421]">Entre em Contato</h4>
+          <ul className="mt-4 space-y-3 text-xs text-[#6b716c]">
+            {CONTACTS.map(({ icon: Icon, text }) => (
+              <li key={text} className="flex items-center gap-2.5">
+                <Icon className="h-4 w-4 text-[#A8845B]" /> {text}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-5 flex gap-3">
+            {SOCIALS.map(({ icon: Icon, label }) => (
+              <motion.a
+                key={label}
+                href="#"
+                whileHover={{ scale: 1.1 }}
+                aria-label={label}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1A2421] text-white transition-colors hover:bg-[#A8845B]"
+              >
+                <Icon className="h-4 w-4" />
+              </motion.a>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h4 className="font-serif text-sm font-bold text-[#1A2421]">Fique Inspirado</h4>
+          <p className="mt-4 text-xs leading-relaxed text-[#6b716c]">
+            Assine nossa newsletter para receber tendências de decoração, cardápios e novidades exclusivas.
+          </p>
+          <form onSubmit={handleNewsletter} className="mt-4">
+            <div className="flex overflow-hidden rounded-full border border-[#d9cfc2] bg-white shadow-xs">
+              <input
+                type="email"
+                required
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                placeholder="Seu melhor e-mail"
+                className="min-w-0 flex-1 px-4 py-2.5 text-xs outline-none"
+              />
+              <button
+                type="submit"
+                className="bg-[#1A2421] px-4 text-white transition-colors hover:bg-[#A8845B]"
+                aria-label="Inscrever-se"
+              >
+                <Send className="h-4 w-4" />
+              </button>
+            </div>
+            {subscribed && (
+              <p className="mt-2 text-[11px] font-semibold text-emerald-700">
+                Obrigado por se inscrever!
+              </p>
+            )}
+          </form>
         </div>
       </div>
-      <div>
-        <h4 className="text-sm font-semibold">Stay Inspired</h4>
-        <p className="mt-4 text-xs text-[#6b716c]">Subscribe to our newsletter for wedding tips, ideas and latest updates.</p>
-        <form className="mt-4 flex overflow-hidden rounded-md border border-[#d9cfc2] bg-white" onSubmit={(e) => e.preventDefault()}>
-          <input type="email" placeholder="Enter your email" className="min-w-0 flex-1 px-3 py-2 text-xs outline-none" />
-          <button className="bg-[#1A2421] px-3 text-white hover:bg-[#2C3B32]" aria-label="Subscribe">
-            <Send className="h-4 w-4" />
-          </button>
-        </form>
-      </div>
-    </div>
-    <div className="mx-auto flex max-w-7xl flex-col justify-between gap-2 border-t border-[#eadfce] py-5 text-[11px] text-[#6b716c] sm:flex-row">
-      <p>© 2024 Eterna Weddings & Beyond. All Rights Reserved.</p>
-      <p className="space-x-6">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms & Conditions</a>
-      </p>
-    </div>
-  </footer>
-);
 
-/* --------------------------------- App --------------------------------- */
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-[#eadfce] py-6 text-xs text-[#6b716c] sm:flex-row">
+        <p>© 2026 ETERNA Espaço & Eventos. Todos os direitos reservados.</p>
+        <div className="flex gap-6">
+          <a href="#" className="hover:text-[#A8845B]">
+            Política de Privacidade
+          </a>
+          <a href="#" className="hover:text-[#A8845B]">
+            Termos de Uso
+          </a>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+/* ----------------------------- App Principal ----------------------------- */
 
 export default function App() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-[#FAF8F5] font-sans text-[#2C3B32] antialiased">
-      <Navbar />
+    <div className="min-h-screen bg-[#FAF8F5] font-sans text-[#2C3B32] antialiased selection:bg-[#D9B98B] selection:text-[#1A2421]">
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
+      <Navbar onOpenBooking={() => setBookingOpen(true)} />
       <main>
-        <Hero />
+        <Hero onOpenBooking={() => setBookingOpen(true)} />
         <Services />
-        <About />
-        <Themes />
-        <Testimonials />
+        <About onOpenBooking={() => setBookingOpen(true)} />
+        <Themes onOpenBooking={() => setBookingOpen(true)} />
+        <Testimonials onOpenBooking={() => setBookingOpen(true)} />
       </main>
-      <BottomCTA />
-      <Footer />
+      <BottomCTA onOpenBooking={() => setBookingOpen(true)} />
+      <Footer onOpenBooking={() => setBookingOpen(true)} />
     </div>
   );
 }
